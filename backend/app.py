@@ -59,12 +59,14 @@ def upload():
         file.save(filepath)
         category = classify_video(filepath)
 
-    return jsonify({'message': 'File uploaded successfully', 'filename': file.filename, 'customField': custom_field_value}), 200
+    return jsonify({'message': 'File uploaded successfully', 
+                    'filename': file.filename, 
+                    'customField': custom_field_value,
+                    'category': category
+                    }), 200
 
-
-def classify_video(filename):
-    # 在此处添加视频分类逻辑，这里只是一个示例
-    return "This is indeed quite the problem to be solved."
+def classify_video(filepath):
+    return "Maybe a movie?"
 
 
 
