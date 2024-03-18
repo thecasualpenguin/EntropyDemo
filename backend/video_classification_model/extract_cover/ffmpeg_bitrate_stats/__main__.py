@@ -16,12 +16,11 @@ import sys
 import pandas as pd
 import numpy as np
 
-from .__init__ import __version__ as version
+# from .__init__ import __version__ as version
 
 
 def print_stderr(msg):
     print(msg, file=sys.stderr)
-
 
 
 def run_command(cmd, dry_run=False, verbose=False):
@@ -48,6 +47,7 @@ class BitrateStats:
     def __init__(
         self,
         input_file,
+        custom_output_dir = None,
         stream_type="video",
         aggregation="time",
         chunk_size=1,
@@ -55,6 +55,7 @@ class BitrateStats:
         verbose=False,
     ):
         self.input_file = input_file
+        self.custom_output_dir = "./csv_outputs" if custom_output_dir == None else custom_output_dir
 
         if stream_type not in ["audio", "video"]:
             print_stderr("Stream type must be audio/video")
@@ -340,7 +341,7 @@ class BitrateStats:
         (filepath, tempfilename) = os.path.split(self.input_file)
         (filename, extension) = os.path.splitext(tempfilename)
 
-        savePath = r"./csv_outputs/"
+        savePath = self.custom_output_dir
         #savePath = ""
         export_path=savePath + filename + ".csv"
         df.to_csv(path_or_buf=export_path, encoding="utf-8-sig", header=False, index=False)
@@ -356,7 +357,7 @@ class BitrateStats:
 def main():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-        description="ffmpeg_bitrate_stats v" + version,
+        # description="ffmpeg_bitrate_stats v" + version,
     )
     parser.add_argument("input", help="input file")
 
@@ -416,6 +417,23 @@ def main():
     )
     br.calculate_statistics()
     br.print_statistics(cli_args.output_format)
+
+
+def extract_bitrate_python_interface(_input, custom_output_dir = None, 
+                                     stream_type="video", aggregation="time", chunk_size=1.0, 
+                                     dry_run=False, verbose=False, output_format="json",):
+    
+    br = BitrateStats(
+        _input,
+        custom_output_dir,
+        stream_type,
+        aggregation,
+        chunk_size,
+        dry_run,
+        verbose,
+    )
+    br.calculate_statistics()
+    br.print_statistics(output_format)
 
 
 if __name__ == "__main__":

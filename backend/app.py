@@ -17,7 +17,8 @@ cors = CORS(app)
 
 # cors = CORS(app, resources={r"/*": {"origins": "http://localhost:port"}})
 
-app.config['UPLOAD_FOLDER'] = 'downloads/'
+cur_directory = os.path.dirname(os.path.realpath(__file__))
+app.config['UPLOAD_FOLDER'] = f'{cur_directory}/downloads/'
 
 @app.route("/")
 def home():
@@ -68,8 +69,12 @@ def upload():
                     }), 200
 
 def classify_video(filepath):
-    results = run_inference()
-    return repr(results)
+    results = run_inference(filepath)
+    
+    if os.path.exists(filepath):
+        os.remove(filepath)
+
+    return results
 
 
 if __name__ == '__main__':
