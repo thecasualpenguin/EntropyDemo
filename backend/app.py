@@ -72,6 +72,5 @@ def classify_video(filepath):
     return repr(results)
 
 
-
 if __name__ == '__main__':
     app.run(debug=True, port=8080)

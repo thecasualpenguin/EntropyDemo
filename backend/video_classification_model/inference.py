@@ -20,6 +20,10 @@ def inference(x_test):
 
 
 def run_inference():
+    # note, we are only running inference on 1 video at a time.
+    # simply because of how the front-end is set up
+    # and to save storage on our cheap cloud server
+    
     start = time.time()
     
     possible_categories = ['Beauty', 'Education', 'Entertainment ', 'Knowledge', 'Music', 'News', 'Sports', 'Technology', 'Food', 'Game', 'Movie']
