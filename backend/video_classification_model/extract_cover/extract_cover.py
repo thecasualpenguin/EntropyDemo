@@ -4,7 +4,7 @@ from os.path import join, basename, isfile
 cur_directory = os.path.dirname(os.path.realpath(__file__))
 
 input_folder = f"{cur_directory}/input_videos"
-output_folder = f"{cur_directory}/csv_outputs"
+output_folder = f"{cur_directory}/csv_output"
 
 for filename in os.listdir(input_folder):
     in_filepath = join(input_folder, filename)

@@ -28,3 +28,8 @@ Temporary Items
 # folders in particular + envs
 backend/env
 backend/downloads/*
+*.mp4
+*.avi
+*.mov
+*.yuv
+*.csv

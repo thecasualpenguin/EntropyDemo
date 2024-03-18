@@ -340,7 +340,7 @@ class BitrateStats:
         (filepath, tempfilename) = os.path.split(self.input_file)
         (filename, extension) = os.path.splitext(tempfilename)
 
-        savePath = r"./csv_output/"
+        savePath = r"./csv_outputs/"
         #savePath = ""
         export_path=savePath + filename + ".csv"
         df.to_csv(path_or_buf=export_path, encoding="utf-8-sig", header=False, index=False)
