@@ -4,8 +4,10 @@ from werkzeug.utils import secure_filename
 import os
 from flask_cors import CORS
 from datetime import datetime
+from video_classification_model import run_inference
 import multidict  # I suppose this is a thing... but front-end has changed to not use this
 # from flask.ext.cors import CORS, cross_origin
+
 
 # initialization
 app = Flask(__name__)
@@ -66,7 +68,8 @@ def upload():
                     }), 200
 
 def classify_video(filepath):
-    return "Maybe a movie?"
+    results = run_inference()
+    return repr(results)
 
 
 
